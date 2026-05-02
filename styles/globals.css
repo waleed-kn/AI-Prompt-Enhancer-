@@ -1,0 +1,104 @@
+/* ─────────────────────────────────────────────────────────────
+   Global Styles — Prompt Enhancer App
+   ───────────────────────────────────────────────────────────── */
+
+/* Google Fonts — loaded here to avoid extra <link> tags in layout */
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── CSS Custom Properties ─────────────────────────────────── */
+:root {
+  --bg-primary: #f5f3ef;
+  --bg-card: #ffffff;
+  --border-subtle: rgba(62, 56, 48, 0.12);
+  --shadow-card: 0 4px 24px rgba(21, 18, 14, 0.08),
+    0 1px 4px rgba(21, 18, 14, 0.06);
+  --shadow-hover: 0 8px 40px rgba(21, 18, 14, 0.14),
+    0 2px 8px rgba(21, 18, 14, 0.08);
+}
+
+/* ── Base Reset ─────────────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "DM Sans", sans-serif;
+  background-color: var(--bg-primary);
+  color: #28241f;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+}
+
+/* ── Utility Layer ──────────────────────────────────────────── */
+@layer utilities {
+  /* Animated gradient text */
+  .text-gradient {
+    background: linear-gradient(135deg, #28241f 0%, #857862 50%, #f5631a 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: gradientShift 6s ease infinite;
+  }
+
+  /* Paper-like card surface */
+  .card-surface {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    box-shadow: var(--shadow-card);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+  }
+
+  .card-surface:hover {
+    box-shadow: var(--shadow-hover);
+  }
+
+  /* Textarea / input shared look */
+  .field-base {
+    @apply w-full rounded-xl border border-ink-200 bg-ink-50 px-4 py-3 font-body text-sm text-ink-900 placeholder-ink-400
+      transition-all duration-200 outline-none
+      focus:border-ember-500 focus:ring-2 focus:ring-ember-500/20 focus:bg-white;
+  }
+
+  /* Subtle noise texture overlay */
+  .noise-overlay::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    border-radius: inherit;
+  }
+}
+
+/* ── Scrollbar Styling ──────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #d0c9ba;
+  border-radius: 99px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #9a8d73;
+}
+
+/* ── Selection ──────────────────────────────────────────────── */
+::selection {
+  background: rgba(245, 99, 26, 0.18);
+  color: #28241f;
+}
